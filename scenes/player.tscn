@@ -9,6 +9,8 @@ size = Vector3(0.16394, 0.166992, 0.153107)
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
 
+[node name="CoyoteTimer" type="Timer" parent="."]
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.131048, 0, 0, 0, 0.131048, 0, 0, 0, 0.131048, 0, 0, 0)
 billboard = 1
@@ -17,3 +19,19 @@ texture = ExtResource("2_qhqgy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10352e-05, 0.00146484, -0.000289917)
 shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="CameraTop" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30, 0)
+projection = 1
+size = 2.0
+
+[node name="CameraController" type="Node3D" parent="."]
+top_level = true
+
+[node name="CameraSide" type="Camera3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+projection = 1
+current = true
+size = 2.0
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="on_coyote_timeout"]
