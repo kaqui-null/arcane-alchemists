@@ -11,10 +11,10 @@ size = Vector3(4.5, 1, 4)
 size = Vector3(3, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ph3nu"]
-size = Vector3(4.5, 1, 1)
+size = Vector3(4.5, 3, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kmhl"]
-size = Vector3(4.5, 1, 1)
+size = Vector3(4.5, 3, 1)
 
 [node name="Tutorial" type="Node3D"]
 script = ExtResource("1_ph3nu")
@@ -82,31 +82,31 @@ texture = ExtResource("3_cq4me")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="wall"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 5.93616, -1.92972, 1.45768)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 7.76948, -1.92972, 1.45768)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.832536, -0.5, 0)
 shape = SubResource("BoxShape3D_ph3nu")
 
 [node name="top" type="Sprite3D" parent="wall/StaticBody3D4"]
-transform = Transform3D(-3.6149e-08, 0, 1, 1.05879e-22, 0.695205, 0, -0.826993, 0, -4.37114e-08, 3.13263, -0.521846, 0)
+transform = Transform3D(-3.61493e-08, 1.27316e-29, 1, 1.0588e-22, 2.275, -1.74684e-37, -0.827, 2.91266e-22, -4.37114e-08, 3.13263, -0.521846, 0)
 texture = ExtResource("3_cq4me")
 
 [node name="side" type="Sprite3D" parent="wall/StaticBody3D4"]
-transform = Transform3D(3.57, 0, 0, 0, 0.785, 0, 0, 0, 0.715, 0.833, -0.5, 0.5)
+transform = Transform3D(3.57, 0, 0, 0, 2.355, 0, 0, 0, 0.715, 0.833, -0.5, 0.5)
 texture = ExtResource("3_cq4me")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="wall"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 5.90706, -1.91655, -1.53612)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 7.91404, -1.91655, -1.53612)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall/StaticBody3D5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.832536, -0.5, 0)
 shape = SubResource("BoxShape3D_4kmhl")
 
 [node name="side" type="Sprite3D" parent="wall/StaticBody3D5"]
-transform = Transform3D(3.57, 0, 0, 0, 0.785, 0, 0, 0, 0.715, 0.833, -0.5, 0.5)
+transform = Transform3D(3.57, 0, 0, 0, 2.355, 0, 0, 0, 0.715, 0.833, -0.5, 0.5)
 texture = ExtResource("3_cq4me")
 
 [node name="top" type="Sprite3D" parent="wall/StaticBody3D5"]
-transform = Transform3D(-3.6149e-08, 0, 1, 1.05879e-22, 0.695205, 0, -0.826993, 0, -4.37114e-08, 3.13263, -0.521846, 0)
+transform = Transform3D(-3.61493e-08, 1.28715e-29, 1, 1.0588e-22, 2.3, -1.74684e-37, -0.827, 2.94466e-22, -4.37114e-08, 3.13263, -0.521846, 0)
 texture = ExtResource("3_cq4me")
