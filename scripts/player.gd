@@ -15,6 +15,10 @@ extends CharacterBody3D
 #cena da magia ??
 @export var magic_scene: PackedScene  # atribuir no editor com a cena da magia
 
+var battle_distance_counter := 0.0
+@export var battle_threshold := 5.0
+@export var battle_chance := 0.3
+
 var facing_direction := Vector3.RIGHT  # começa olhando para direita
 
 var can_jump = false
@@ -153,11 +157,21 @@ func topdown_movement(delta):
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+		
+		battle_distance_counter += direction.length() * speed * delta
+		if battle_distance_counter >= battle_threshold:
+			battle_distance_counter = 0.0
+			if randf() < battle_chance:
+				start_battle()
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
+
+func start_battle():
+	print("batalha")
+	#adicionar a cena
 
 func camera_follow():
 	camera_controller.position = lerp(camera_controller.position, position, 0.1)
