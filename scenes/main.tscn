@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://2omqnn0l7tli"]
+
+[ext_resource type="Script" uid="uid://dx0uils3r184p" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://elwjvp2ru3iq" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="3_tbgi4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(1.83401, 0.415527, 1.50562)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_sugp2")
+
+[node name="CameraSide" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.69429)
+projection = 1
+
+[node name="CameraTop" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.935664, -0.0536249)
+projection = 1
+
+[node name="Player" parent="." instance=ExtResource("2_sugp2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00675964, -0.356689, -0.000610352)
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="side" type="Sprite3D" parent="StaticBody3D"]
+transform = Transform3D(1.43793, 0, 0, 0, 0.33748, 0, 0, 0, 1, 0, -0.356947, 0.745921)
+texture = ExtResource("3_tbgi4")
+
+[node name="top" type="Sprite3D" parent="StaticBody3D"]
+transform = Transform3D(1.41124, 0, 0, 0, -5.11336e-08, -1, 0, 1.1698, -4.37114e-08, 0, -0.152106, 0)
+texture = ExtResource("3_tbgi4")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.208353, 0, 0, 0, 1.57508, 0, 0, 0, 0.301645, 0.281, 0.763, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00675964, -0.356689, -0.000610352)
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="side" type="Sprite3D" parent="StaticBody3D2"]
+transform = Transform3D(1.43793, 0, 0, 0, 0.33748, 0, 0, 0, 1, 0, -0.356947, 0.745921)
+texture = ExtResource("3_tbgi4")
+
+[node name="top" type="Sprite3D" parent="StaticBody3D2"]
+transform = Transform3D(1.41124, 0, 0, 0, -5.11336e-08, -1, 0, 1.1698, -4.37114e-08, 0, -0.152106, 0)
+texture = ExtResource("3_tbgi4")
