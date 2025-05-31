@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjgm20gfnturd"]
+
+[ext_resource type="Script" uid="uid://dqmwfh1e2pdg6" path="res://scripts/magic.gd" id="1_qfcg7"]
+[ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="2_bte6l"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cxktf"]
+radius = 0.0661234
+
+[node name="Magic" type="Area3D"]
+script = ExtResource("1_qfcg7")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+texture = ExtResource("2_bte6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_cxktf")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b73dg3mhrdqhq"]
 
-[ext_resource type="Script" uid="uid://bc7vp2w8tfj78" path="res://scripts/turn_based_battle.gd" id="1_3jy5c"]
+[ext_resource type="Script" path="res://scripts/turn_based_battle.gd" id="1_3jy5c"]
 [ext_resource type="PackedScene" uid="uid://dvardgxhoepl7" path="res://scenes/enemy.tscn" id="2_dqkxm"]
-[ext_resource type="PackedScene" uid="uid://v2dwkhgvwffy" path="res://scenes/player_in_turn_based_combat.tscn" id="3_dqkxm"]
+[ext_resource type="PackedScene" path="res://scenes/player_in_turn_based_combat.tscn" id="3_dqkxm"]
 
 [sub_resource type="Gradient" id="Gradient_dqkxm"]
 
