@@ -1,15 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://b73dg3mhrdqhq"]
+[gd_scene load_steps=6 format=3 uid="uid://b73dg3mhrdqhq"]
 
 [ext_resource type="Script" uid="uid://bc7vp2w8tfj78" path="res://scripts/turn_based_battle.gd" id="1_3jy5c"]
 [ext_resource type="PackedScene" uid="uid://dvardgxhoepl7" path="res://scenes/enemy.tscn" id="2_dqkxm"]
 [ext_resource type="PackedScene" uid="uid://v2dwkhgvwffy" path="res://scenes/player_in_turn_based_combat.tscn" id="3_dqkxm"]
 
+[sub_resource type="Gradient" id="Gradient_dqkxm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5run2"]
+gradient = SubResource("Gradient_dqkxm")
+
 [node name="turn_based_battle" type="Node2D"]
 script = ExtResource("1_3jy5c")
 
 [node name="background" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -575.0
+offset_top = -323.0
+offset_right = 574.0
+offset_bottom = 322.0
+texture = SubResource("GradientTexture2D_5run2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

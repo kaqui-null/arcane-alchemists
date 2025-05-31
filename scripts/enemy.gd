@@ -13,7 +13,7 @@ func _init() -> void:
 	set_lvl_stats()
 
 func file_reading():
-	var stat_file = FileAccess.open('res://enemy_stats/base_stats.json', FileAccess.READ)
+	var stat_file = FileAccess.open('res://enemy_stats/player_stats.json', FileAccess.READ)
 	var stat_string = stat_file.get_as_text()
 	stat_file.close()
 	var json = JSON.new()
@@ -67,9 +67,9 @@ func hit_chance(is_magical, magical_element, target_status, resistance_matrix):
 			accuracy -= 40
 			
 	var is_mag_attack = 0.25*stats["magic_defence"] if is_magical == true else 1
-	var hit_chance = 100*stats["agility"]*is_mag_attack / 256
+	var hit = 100*stats["agility"]*is_mag_attack / 256
 	
-	return true if hit_chance < accuracy else false
+	return true if hit < accuracy else false
 
 func set_lvl_stats():
 	for stat_key in stats.keys():

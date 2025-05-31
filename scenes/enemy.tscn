@@ -1,10 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvardgxhoepl7"]
+[gd_scene load_steps=7 format=3 uid="uid://dvardgxhoepl7"]
 
 [ext_resource type="Script" uid="uid://coohkmtgavmd3" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://ddnjikvkc3xpr" path="res://scripts/progress_bar_enemy.gd" id="3_4ra3w"]
+
+[sub_resource type="Theme" id="Theme_5uy6h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4w8v"]
+bg_color = Color(1, 0.0941176, 0.113725, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwavj"]
+bg_color = Color(0.0431373, 1, 0.0196078, 1)
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_4ra3w")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 0)
+offset_left = -90.0
+offset_top = 75.0
+offset_right = 110.0
+offset_bottom = 102.0
+theme = SubResource("Theme_5uy6h")
+theme_override_styles/background = SubResource("StyleBoxFlat_c4w8v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xwavj")
+step = 1.0
+value = 50.0
+script = ExtResource("3_4ra3w")
