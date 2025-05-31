@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="arcane-alchemists"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="uid://2omqnn0l7tli"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
