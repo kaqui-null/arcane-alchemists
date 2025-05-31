@@ -1,24 +1,16 @@
 extends Node2D
-# hp = hp + (stamina/4)*lvl + if(lvl is div by 5) add 30
-# mp = mp + (intelligence/4)*(lvl/2) + if(lvl is div by 10) add 30
-# other = +2 per lvl + rand(0,2) each per lvl (for now)
-
-# accuracy = 100 + 40(if target blind) - 40(if attacker blind) + 40(if target is weak)
-# hit = 100*agility*(1/4 of mag. def. if mag attack) / 256(max value) -> if accuracy > hit: hit()
-# heal = (5, 10, 20, 40 by spell lvl)*lvl % of max life : cap 100%
-#         1,  2,  4,  8
-#         2⁰, 2¹, 2³, 2⁴
-# attack_spell_dmg = floor(rand(int, 2*int) - mag. def.) * 2(if weak) * 1/2(if resist) * -1 (if absorb)
 
 @export var stats = {}
 @export var stat_keys = {}
 @export var stat_values = {}
+@export var status = "none"
 
 func _physics_process(delta: float) -> void:
 	pass
 
 func _init() -> void:
 	file_reading()
+	set_lvl_stats()
 
 func file_reading():
 	var stat_file = FileAccess.open('res://enemy_stats/base_stats.json', FileAccess.READ)
@@ -31,7 +23,6 @@ func file_reading():
 	
 	stat_keys = stats.keys()
 	stat_values = stats.values()
-	
 
 func physical_attack(target_defense) -> float:
 	var dmg = floor((randf_range(stats["strenght"], stats["strenght"]) - target_defense))
@@ -63,3 +54,33 @@ func heal(spell_lvl, mp_consumption):
 		stats["hp"] += heal_amount
 		if stats["hp"] > stats["max_hp"]:
 			stats["hp"] = stats["max_hp"]
+
+# status blind, weak
+func hit_chance(is_magical, magical_element, target_status, resistance_matrix):
+	var accuracy = 100
+	if status == "blind":
+		accuracy -= 40
+	if target_status == "blind":
+		accuracy += 40
+	for resistance in resistance_matrix:
+		if resistance[0] == magical_element:
+			accuracy -= 40
+			
+	var is_mag_attack = 0.25*stats["magic_defence"] if is_magical == true else 1
+	var hit_chance = 100*stats["agility"]*is_mag_attack / 256
+	
+	return true if hit_chance < accuracy else false
+
+func set_lvl_stats():
+	for stat_key in stats.keys():
+		match stat_key:
+			"hp":
+				stats["hp"]+= stats["lvl"]*(stats["stamina"]/4)
+			"max_hp": 
+				stats["max_hp"]+= stats["lvl"]*(stats["stamina"]/4)
+			"mp":
+				stats["mp"]+= (stats["lvl"]/5)*(stats["intelligence"]/4)
+			"max_mp":
+				stats["mp"]+= (stats["lvl"]/5)*(stats["intelligence"]/4)
+			_:
+				stats[stat_key] += 2 + randi_range(0,1)
