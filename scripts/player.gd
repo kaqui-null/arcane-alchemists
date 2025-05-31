@@ -61,22 +61,8 @@ func cast_magic():
 
 		if Input.is_action_pressed("aim_mode"):
 			var input_dir = Input.get_vector("left", "right", "up", "down")
-
-			# Mira para cima
-			if input_dir == Vector2.UP:
-				dir = Vector3.UP
-			# Diagonal direita
-			elif input_dir == Vector2(1, -1):
-				dir = (Vector3.UP + Vector3.RIGHT).normalized()
-			# Diagonal esquerda
-			elif input_dir == Vector2(-1, -1):
-				dir = (Vector3.UP + Vector3.LEFT).normalized()
-			# Horizontal (reafirmações)
-			elif input_dir.x > 0:
-				dir = Vector3.RIGHT
-			elif input_dir.x < 0:
-				dir = Vector3.LEFT
-
+			dir = get_aim_direction(input_dir)
+			
 		magic_instance.direction = dir
 
 func melee_attack():
@@ -127,6 +113,25 @@ func sidescroller_movement(delta):
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 	move_and_slide()
+
+func get_aim_direction(input_dir: Vector2) -> Vector3:
+	if input_dir.length() == 0:
+		return facing_direction  # ou qualquer padrão
+	
+	var angle = rad_to_deg(input_dir.angle())
+	
+	if angle < -157.5 or angle > 157.5:
+		return Vector3.LEFT
+	elif angle < -112.5:
+		return (Vector3.LEFT + Vector3.UP).normalized()
+	elif angle < -67.5:
+		return Vector3.UP
+	elif angle < -22.5:
+		return (Vector3.RIGHT + Vector3.UP).normalized()
+	elif angle < 22.5:
+		return Vector3.RIGHT
+
+	return facing_direction
 
 func jump():
 	velocity.y = jump_velocity

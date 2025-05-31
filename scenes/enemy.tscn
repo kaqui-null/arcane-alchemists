@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://coohkmtgavmd3" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="2_4ra3w"]
-[ext_resource type="Script" path="res://scripts/progress_bar_enemy.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://ddnjikvkc3xpr" path="res://scripts/progress_bar_enemy.gd" id="3_4ra3w"]
 
 [sub_resource type="Theme" id="Theme_5uy6h"]
 
