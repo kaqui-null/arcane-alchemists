@@ -84,3 +84,6 @@ func set_lvl_stats():
 				stats["mp"]+= (stats["lvl"]/5)*(stats["intelligence"]/4)
 			_:
 				stats[stat_key] += 2 + randi_range(0,1)
+
+func end_turn():
+	pass

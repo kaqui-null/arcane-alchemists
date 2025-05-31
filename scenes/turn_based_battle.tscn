@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://b73dg3mhrdqhq"]
+[gd_scene load_steps=4 format=3 uid="uid://b73dg3mhrdqhq"]
 
-[node name="TurnBasedBattle" type="Node2D"]
+[ext_resource type="Script" uid="uid://bc7vp2w8tfj78" path="res://scripts/turn_based_battle.gd" id="1_3jy5c"]
+[ext_resource type="PackedScene" uid="uid://dvardgxhoepl7" path="res://scenes/enemy.tscn" id="2_dqkxm"]
+[ext_resource type="PackedScene" uid="uid://v2dwkhgvwffy" path="res://scenes/player_in_turn_based_combat.tscn" id="3_dqkxm"]
+
+[node name="turn_based_battle" type="Node2D"]
+script = ExtResource("1_3jy5c")
+
+[node name="background" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="enemies" type="Node2D" parent="."]
+position = Vector2(0, -175)
+
+[node name="Enemy1" parent="enemies" instance=ExtResource("2_dqkxm")]
+
+[node name="Player" parent="." instance=ExtResource("3_dqkxm")]

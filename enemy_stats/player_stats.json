@@ -1,0 +1,14 @@
+{
+	"lvl" : 1,
+	"xp" : 0,
+	"hp" : 10,
+	"max_hp" : 10,
+	"mp" : 5,
+	"max_mp" : 5,
+	"strenght" : 5,
+	"defense" : 2,
+	"magic_defense" : 2,
+	"agility" : 3,
+	"intelligence" : 5,
+	"stamina" : 5
+}
