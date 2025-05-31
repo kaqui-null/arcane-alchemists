@@ -24,8 +24,13 @@ func _ready():
 	melee_hitbox.monitoring = false
 	melee_hitbox.get_node("Sprite3D").visible = false
 
+var magic_cooldown = 0.1
+var magic_timer = 0.0
+
 func _physics_process(delta: float) -> void:
-	
+	if magic_timer > 0:
+		magic_timer -= delta
+		
 	match game_manager.current_state:
 		game_manager.GameState.SIDESCROLLER: 
 			sidescroller_movement(delta)
@@ -41,8 +46,9 @@ func _physics_process(delta: float) -> void:
 func handle_attacks():
 	if Input.is_action_just_pressed("melee_attack"):
 		melee_attack()
-	elif Input.is_action_just_pressed("magic_attack"):
+	elif Input.is_action_pressed("magic_attack") and magic_timer <= 0:
 		cast_magic()
+		magic_timer = magic_cooldown
 #adicioanr dano ao inimigo
 
 func cast_magic():
@@ -51,13 +57,25 @@ func cast_magic():
 		get_tree().current_scene.add_child(magic_instance)
 		magic_instance.global_transform = magic_spawner.global_transform
 
-		var input_dir = Input.get_vector("left", "right", "up", "down")
+		var dir = facing_direction  # valor padrão (modo normal)
 
-		var dir = Vector3.RIGHT
-		if input_dir.x < 0:
-			dir = Vector3.LEFT
-		elif input_dir.x == 0:
-			dir = Vector3.RIGHT
+		if Input.is_action_pressed("aim_mode"):
+			var input_dir = Input.get_vector("left", "right", "up", "down")
+
+			# Mira para cima
+			if input_dir == Vector2.UP:
+				dir = Vector3.UP
+			# Diagonal direita
+			elif input_dir == Vector2(1, -1):
+				dir = (Vector3.UP + Vector3.RIGHT).normalized()
+			# Diagonal esquerda
+			elif input_dir == Vector2(-1, -1):
+				dir = (Vector3.UP + Vector3.LEFT).normalized()
+			# Horizontal (reafirmações)
+			elif input_dir.x > 0:
+				dir = Vector3.RIGHT
+			elif input_dir.x < 0:
+				dir = Vector3.LEFT
 
 		magic_instance.direction = dir
 
@@ -88,14 +106,20 @@ func sidescroller_movement(delta):
 		else:
 			has_jump_buffer = true
 			get_tree().create_timer(jump_buffer_time).timeout.connect(on_jump_buffer_timeout)
+	
+	if Input.is_action_pressed("aim_mode"):
+		velocity.x = 0
+		move_and_slide()
+		return
 
 	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if input_dir.x > 0:
+	if input_dir.x < 0:
 		facing_direction = Vector3.LEFT
 	elif input_dir.x > 0:
 		facing_direction = Vector3.RIGHT
+	
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
 		velocity.x = direction.x * speed
