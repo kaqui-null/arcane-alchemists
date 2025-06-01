@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://b1dnrlagkjo1l"]
+[gd_scene load_steps=20 format=3 uid="uid://b1dnrlagkjo1l"]
 
 [ext_resource type="Script" uid="uid://dx0uils3r184p" path="res://scripts/main.gd" id="1_ph3nu"]
 [ext_resource type="PackedScene" uid="uid://elwjvp2ru3iq" path="res://scenes/player.tscn" id="2_4kmhl"]
+[ext_resource type="PackedScene" uid="uid://y80ajigyfgkw" path="res://scenes/enemies (sidescroller)/line_enemy.tscn" id="3_4kmhl"]
 [ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="3_cq4me"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6yjpi"]
@@ -64,6 +65,9 @@ size = 10.0
 
 [node name="Player" parent="." instance=ExtResource("2_4kmhl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02004, 0.633079, 0.00333869)
+
+[node name="LineEnemy" parent="." instance=ExtResource("3_4kmhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.348768, 0.477598, 0)
 
 [node name="Ground" type="Node3D" parent="."]
 
