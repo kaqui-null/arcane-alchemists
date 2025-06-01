@@ -26,6 +26,8 @@ var battle_distance_counter := 0.0
 
 var footstep_timer := 0.0
 var footstep_interval := 0.2
+var melee_sound_timer := 0.0
+var melee_sound_interval := 0.3
 
 var facing_direction := Vector3.RIGHT  # começa olhando para direita
 var health = 100
@@ -47,6 +49,8 @@ func _physics_process(delta: float) -> void:
 	
 	if magic_timer > 0:
 		magic_timer -= delta
+	if melee_sound_timer > 0.0:
+		melee_sound_timer -= delta
 		
 	match game_manager.current_state:
 		game_manager.GameState.SIDESCROLLER: 
@@ -85,7 +89,10 @@ func cast_magic():
 		magic_sound_player.play()
 
 func melee_attack():
-	melee_sound_player.play()
+	if melee_sound_timer <= 0.0:
+		melee_sound_player.play()
+		melee_sound_timer = melee_sound_interval
+	
 	melee_hitbox.get_node("Sprite3D").visible = true
 	
 	await get_tree().create_timer(0.2).timeout
