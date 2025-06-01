@@ -20,7 +20,8 @@ var battle_distance_counter := 0.0
 @export var battle_chance := 0.3
 
 var facing_direction := Vector3.RIGHT  # começa olhando para direita
-
+var health = 100
+var is_dead = false
 var can_jump = false
 var has_jump_buffer = false
 
@@ -32,6 +33,9 @@ var magic_cooldown = 0.1
 var magic_timer = 0.0
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		get_tree().reload_current_scene()
+	
 	if magic_timer > 0:
 		magic_timer -= delta
 		
@@ -184,3 +188,12 @@ func change_mode():
 		game_manager.current_state = game_manager.GameState.SIDESCROLLER
 		side_camera.make_current()
 		
+
+func take_damage(damage):
+	health -= damage
+	if health <= 0:
+		die()
+
+func die():
+	print("Player died")
+	is_dead = true

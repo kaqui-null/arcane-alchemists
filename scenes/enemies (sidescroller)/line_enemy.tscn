@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://y80ajigyfgkw"]
+[gd_scene load_steps=6 format=3 uid="uid://y80ajigyfgkw"]
 
 [ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="1_gq87g"]
 [ext_resource type="Script" uid="uid://c12p5f2gd8oby" path="res://scripts/line_enemy.gd" id="1_iudch"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6p01"]
-size = Vector3(0.251242, 0.242569, 0.213501)
+size = Vector3(0.251242, 0.242569, 6.41306)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4opvu"]
-size = Vector3(0.00954032, 0.190895, 0.167725)
+size = Vector3(0.00954032, 0.190895, 6.23446)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iudch"]
+size = Vector3(0.25779, 0.257557, 6.3562)
 
 [node name="LineEnemy" type="CharacterBody3D"]
 collision_layer = 4
@@ -20,14 +23,14 @@ modulate = Color(0.992895, 0, 0.168342, 1)
 texture = ExtResource("1_gq87g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00262427, 0.00209808, 0.0116577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00262427, 0.00209808, -0.00295639)
 shape = SubResource("BoxShape3D_d6p01")
 
 [node name="LeftArea" type="Area3D" parent="."]
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LeftArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140968, 0.0326271, 0.0223389)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140968, 0.0326271, 0.0701714)
 shape = SubResource("BoxShape3D_4opvu")
 
 [node name="LeftEdgeCast" type="RayCast3D" parent="."]
@@ -45,5 +48,14 @@ shape = SubResource("BoxShape3D_4opvu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.127, -0.1, 0)
 target_position = Vector3(0, -0.2, 0)
 
+[node name="DamageArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00170517, 0.000333786, -0.00842285)
+shape = SubResource("BoxShape3D_iudch")
+
 [connection signal="body_entered" from="LeftArea" to="." method="_on_left_area_body_entered"]
 [connection signal="body_entered" from="RightArea" to="." method="_on_right_area_body_entered"]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
