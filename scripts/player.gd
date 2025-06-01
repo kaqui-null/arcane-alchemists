@@ -76,16 +76,21 @@ func cast_magic():
 	if magic_scene and game_manager.current_state == game_manager.GameState.SIDESCROLLER:
 		var magic_instance = magic_scene.instantiate()
 		get_tree().current_scene.add_child(magic_instance)
-		magic_instance.global_transform = magic_spawner.global_transform
 
-		var dir = facing_direction  # valor padrão (modo normal)
+		var dir = facing_direction
 
 		if Input.is_action_pressed("aim_mode"):
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			dir = get_aim_direction(input_dir)
-			
+
+		var offset = Vector3(0.1, 0, 0) if dir == Vector3.RIGHT else Vector3(-0.5, 0, 0)
+		var spawn_pos = magic_spawner.global_transform.origin + offset
+		var spawn_transform = magic_spawner.global_transform
+		spawn_transform.origin = spawn_pos
+
+		magic_instance.global_transform = spawn_transform
 		magic_instance.direction = dir
-		
+
 		magic_sound_player.play()
 
 func melee_attack():
@@ -93,10 +98,16 @@ func melee_attack():
 		melee_sound_player.play()
 		melee_sound_timer = melee_sound_interval
 	
+	var offset = Vector3(0, 0, 0) if facing_direction == Vector3.RIGHT else Vector3(-0.43, 0, 0)
+	melee_hitbox.position = offset 
+	melee_hitbox.get_node("Sprite3D").visible = true
+	
+	melee_hitbox.monitoring = true
 	melee_hitbox.get_node("Sprite3D").visible = true
 	
 	await get_tree().create_timer(0.2).timeout
 	
+	melee_hitbox.monitoring = false
 	melee_hitbox.get_node("Sprite3D").visible = false
 
 func sidescroller_movement(delta):
