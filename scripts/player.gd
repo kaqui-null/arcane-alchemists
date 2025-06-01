@@ -19,18 +19,27 @@ var battle_distance_counter := 0.0
 @export var battle_threshold := 5.0
 @export var battle_chance := 0.3
 
+@onready var magic_sound_player = $MagicSoundPLayer
+@onready var melee_sound_player = $MeleeSoundPLayer
+@onready var jump_sound_player = $JumpSoundPLayer
+@onready var footstep_sound_player = $FootstepSoundPLayer
+
+var footstep_timer := 0.0
+var footstep_interval := 0.2
+
 var facing_direction := Vector3.RIGHT  # começa olhando para direita
 var health = 100
 var is_dead = false
 var can_jump = false
 var has_jump_buffer = false
 
+var magic_cooldown = 0.1
+var magic_timer = 0.0
+
 func _ready():
 	melee_hitbox.monitoring = false
 	melee_hitbox.get_node("Sprite3D").visible = false
 
-var magic_cooldown = 0.1
-var magic_timer = 0.0
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -72,8 +81,11 @@ func cast_magic():
 			dir = get_aim_direction(input_dir)
 			
 		magic_instance.direction = dir
+		
+		magic_sound_player.play()
 
 func melee_attack():
+	melee_sound_player.play()
 	melee_hitbox.get_node("Sprite3D").visible = true
 	
 	await get_tree().create_timer(0.2).timeout
@@ -142,6 +154,7 @@ func get_aim_direction(input_dir: Vector2) -> Vector3:
 	return facing_direction
 
 func jump():
+	jump_sound_player.play()
 	velocity.y = jump_velocity
 	can_jump = false
 	
@@ -158,6 +171,16 @@ func topdown_movement(delta):
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	if is_on_floor():
+		if direction != Vector3.ZERO:
+			footstep_timer -= delta
+			if footstep_timer <= 0.0:
+				play_footstep_sound()
+				footstep_timer = footstep_interval
+		else:
+			if footstep_sound_player.playing:
+				footstep_sound_player.stop()
+			footstep_timer = 0.0
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
@@ -170,8 +193,12 @@ func topdown_movement(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
-
+	
 	move_and_slide()
+
+func play_footstep_sound():
+	footstep_sound_player.pitch_scale = randf_range(0.8, 1.2)
+	footstep_sound_player.play()
 
 func start_battle():
 	print("batalha")

@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://elwjvp2ru3iq"]
+[gd_scene load_steps=10 format=3 uid="uid://elwjvp2ru3iq"]
 
 [ext_resource type="Script" uid="uid://dp0gexuqn6x23" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://bjgm20gfnturd" path="res://scenes/Magic.tscn" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dc6a3tcbuk2hi" path="res://icon.svg" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://bvy3571bqa5xj" path="res://sounds/arcane_sfx_sword1.wav" id="4_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://b81b3pqmnl51o" path="res://sounds/arcane_sfx_gun1.wav" id="5_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://c5mtxbfhyspb8" path="res://sounds/arcane_sfx_jump1.wav" id="6_fjrip"]
+[ext_resource type="AudioStream" uid="uid://dpg3wsswlwec6" path="res://sounds/arcane_sfx_steps1.wav" id="7_smehm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.259491, 0.256103, 0.153107)
@@ -53,5 +57,17 @@ texture = ExtResource("2_qhqgy")
 
 [node name="magicSpawner" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221329, 0, 0)
+
+[node name="MagicSoundPLayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_tuyoq")
+
+[node name="MeleeSoundPLayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_qlg0r")
+
+[node name="JumpSoundPLayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_fjrip")
+
+[node name="FootstepSoundPLayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_smehm")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="on_coyote_timeout"]
